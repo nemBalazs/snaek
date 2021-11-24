@@ -1,82 +1,62 @@
 #ifndef SNAEKMOV
 #define SNAEKMOV
-
-int points;
+int Points;
+int SnakeLocationX, SnakeLocationY;
 
 // 1: UP
 // 2: LEFT
 // 3: DOWN
 // 4: RIGHT
-void MoveSnake(int direction) {
-    int SnaekLocationX, SnaekLocationY;
-    bool GameEnd = false;
+void SnakeMove(int SnakeX, int SnakeY, int direction) {
+    int NewSnakeX, NewSnakeY;
+        if(direction == 1) {
+            NewSnakeX = (SnakeX - 1);
+            NewSnakeY = SnakeY;
+        }
+        else if(direction == 2) {
+            NewSnakeX = SnakeX;
+            NewSnakeY = (SnakeY - 1);
+        }
+        else if(direction == 3) {
+            NewSnakeX = (SnakeX + 1);
+            NewSnakeY = SnakeY;
+        }
+        else if(direction == 4) {
+            NewSnakeX = SnakeX;
+            NewSnakeY = (SnakeY + 1);
+    }
+
+    // the actual relocation
+    if(Board[NewSnakeX][NewSnakeY] == BORDER) {
+        Board[NewSnakeX][NewSnakeY] = "X";
+        SnakeIsDead = true;
+        goto skip;
+    }
+    else if(Board[NewSnakeX][NewSnakeY] == TREAT) {
+        Points++;
+    }
+    if(!SnakeIsDead) {
+        Board[NewSnakeX][NewSnakeY] = SNAKE;
+        Board[SnakeX][SnakeY] = EMPTY_SPACE;
+    }
+skip:
+    if(DEBUG_MODE) {
+        printf("Direction: %i, SnakeX %i, SnakeY %i, NewSnakeX %i, NewSnakeY %i\n", direction, SnakeX, SnakeY, NewSnakeX, NewSnakeY);
+    }
+}
+
+// this just locates the snake's pos, and then passes the info to SnakeMove()
+void InitMove(int direction) {
     for(int column = 0; column < HEIGHT; column++) {
         for(int row = 0; row < WIDTH; row++) {
             if(Board[column][row] == SNAKE) {
-                SnaekLocationX = column;
-                SnaekLocationY = row;
+                SnakeLocationX = column;
+                SnakeLocationY = row;
                 break;
             }
         }
     }
-
-    // up
-    if(direction == 1) {
-        if (Board[SnaekLocationX - 1][SnaekLocationY] == BORDER) {
-            SnakeIsDead = true;
-        }
-        else if (Board[SnaekLocationX - 1][SnaekLocationY] == TREAT) {
-            points++;
-        }
-        if (!GameEnd) {
-        Board[SnaekLocationX][SnaekLocationY] = EMPTY_SPACE;
-        Board[SnaekLocationX - 1][SnaekLocationY] = SNAKE;
-        }
-    }
-
-    // left
-    if(direction == 2) {
-        if (Board[SnaekLocationX][SnaekLocationY - 1] == BORDER) {
-            SnakeIsDead = true;
-        }
-        else if (Board[SnaekLocationX][SnaekLocationY - 1] == TREAT) {
-            points++;
-        }
-        if (!GameEnd) {
-        Board[SnaekLocationX][SnaekLocationY] = EMPTY_SPACE;
-        Board[SnaekLocationX][SnaekLocationY - 1] = SNAKE;
-        }
-    }
-
-    // down
-    if(direction == 3) {
-        if (Board[SnaekLocationX + 1][SnaekLocationY] == BORDER) {
-            SnakeIsDead = true;
-        }
-        else if (Board[SnaekLocationX + 1][SnaekLocationY] == TREAT) {
-            points++;
-        }
-        if (!GameEnd) {
-        Board[SnaekLocationX][SnaekLocationY] = EMPTY_SPACE;
-        Board[SnaekLocationX + 1][SnaekLocationY] = SNAKE;
-        }
-    }
-
-    // right
-    if(direction == 4) {
-        if (Board[SnaekLocationX][SnaekLocationY + 1] == BORDER) {
-            SnakeIsDead = true;
-        }
-        else if (Board[SnaekLocationX][SnaekLocationY + 1] == TREAT) {
-            points++;
-        }
-        if (!GameEnd) {
-        Board[SnaekLocationX][SnaekLocationY] = EMPTY_SPACE;
-        Board[SnaekLocationX][SnaekLocationY + 1] = SNAKE;
-        }
-    }
-
-
-
+    SnakeMove(SnakeLocationX, SnakeLocationY, direction);
 }
+
 #endif

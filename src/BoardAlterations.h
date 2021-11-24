@@ -3,7 +3,7 @@
 // values i may or may not change often
 const bool DEBUG_MODE = 0;
 const std::string EMPTY_SPACE = " ";
-const std::string SNAKE = "o";
+const std::string SNAKE = "\033[1;31mo\033[0m";
 const std::string TREAT = "$";
 const std::string BORDER = ".";
 

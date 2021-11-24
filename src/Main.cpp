@@ -12,7 +12,7 @@ int main() {
 
 game_init:
     InitBoard();
-    points = 0;
+    Points = 0;
     SnakeIsDead = false;
 // game init end
 
@@ -24,17 +24,19 @@ get_input:
         printf("\nEnter a direction\nMovement:\n W\nASD\n");
         std::string Input = "";
         std::cin >> Input;
-        if(Input == "W" || Input == "w") { MoveSnake(1); }
-        else if(Input == "A" || Input == "a") { MoveSnake(2); }
-        else if(Input == "S" || Input == "s") { MoveSnake(3); }
-        else if(Input == "D" || Input == "d") { MoveSnake(4); }
+        if(Input == "W" || Input == "w") { InitMove(1); }
+        else if(Input == "A" || Input == "a") { InitMove(2); }
+        else if(Input == "S" || Input == "s") { InitMove(3); }
+        else if(Input == "D" || Input == "d") { InitMove(4); }
         else {
             printf("%s isn't a movement\n", Input);
             goto get_input;
         }
     }
 
-    printf("You died. Points: %i\n", points);
+    printf("You died. Points: %i\n", Points);
+    PrintBoardStatus();
+    goto retry;
 retry:
         std::cout << "Retry? (y/n)\n";
         std::string RetryInput;
