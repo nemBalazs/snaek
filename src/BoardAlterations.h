@@ -3,17 +3,16 @@
 // values i may or may not change often
 const bool DEBUG_MODE = 0;
 const std::string EMPTY_SPACE = " ";
-const std::string SNAEK = "o";
+const std::string SNAKE = "o";
 const std::string TREAT = "$";
 const std::string BORDER = ".";
 
 // height and width of the board
-#define HEIGHT 3
-#define WIDTH 3
+#define HEIGHT 10
+#define WIDTH 10
 
 std::string Board[HEIGHT][WIDTH];
-bool SnaekIsDead;
-
+bool SnakeIsDead;
 
 // empties the board
 void InitBoard() {
@@ -28,16 +27,16 @@ void InitBoard() {
         }
     }
 
-    Board[2][2] = SNAEK;
+    Board[2][2] = SNAKE;
 }
 
 // yes cool name
 void PrintBoardStatus() {
-    std::cout << "Snaek Game";
+    std::cout << "Snake Game";
     for(int column = 0; column < HEIGHT; column++) {
         std::cout << std::endl;
         for(int row = 0; row < WIDTH; row++) {
-            std::cout << Board[column][row];
+            std::cout << Board[column][row] << " ";
         }
     }
     std::cout << std::endl;
@@ -52,7 +51,7 @@ void PlaceTreat() {
         row = rand() % (WIDTH);
 
         // check for occupied place
-        if(Board[column][row] == SNAEK || Board[column][row] == TREAT || Board[column][row] == BORDER) {
+        if(Board[column][row] == SNAKE || Board[column][row] == TREAT || Board[column][row] == BORDER) {
             if(DEBUG_MODE) { std::cout << "Place occupied\n"; }
             
             // checking for game over
@@ -73,7 +72,7 @@ void PlaceTreat() {
             // if the board is full, end the current game
             if(BoardIsFull == true) {
                 std::cout << "Board is full\n";
-                SnaekIsDead = true;
+                SnakeIsDead = true;
                 break;
             } else { continue; }
 
