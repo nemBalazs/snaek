@@ -8,8 +8,8 @@ const std::string TREAT = "$";
 const std::string BORDER = ".";
 
 // height and width of the board
-#define HEIGHT 10
-#define WIDTH 10
+#define HEIGHT 15
+#define WIDTH 20
 
 std::string Board[HEIGHT][WIDTH];
 bool SnakeIsDead;
@@ -32,7 +32,6 @@ void InitBoard() {
 
 // yes cool name
 void PrintBoardStatus() {
-    std::cout << "Snake Game";
     for(int column = 0; column < HEIGHT; column++) {
         std::cout << std::endl;
         for(int row = 0; row < WIDTH; row++) {
