@@ -44,6 +44,7 @@ void PrintBoardStatus() {
 
 // simple treat placing algorithm
 void PlaceTreat() {
+    srand(time(NULL));
     bool TreatIsPlaced = false;
     int column, row;
     while(!TreatIsPlaced) {

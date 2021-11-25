@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <time.h>
 #include "BoardAlterations.h"
 #include "Snaek.h"
 
