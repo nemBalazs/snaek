@@ -7,13 +7,14 @@
 
 int main() {
     if(HEIGHT < 5 || WIDTH < 5) {
-        printf("Invalid arguments for 'HEIGHT' (%i) or 'WIDTH' (%i) \n", HEIGHT, WIDTH);
+        printf(">> WARNING: Height or Width is lower than the minimum\n", HEIGHT, WIDTH);
     }
     std::cout << "Snaek by nemBalazs66" << std::endl;
 
 game_init:
     InitBoard();
     Points = 0;
+    SnakeLength = 0;
     SnakeIsDead = false;
 // game init end
 
@@ -30,7 +31,7 @@ get_input:
         else if(Input == "S" || Input == "s") { InitMove(3); }
         else if(Input == "D" || Input == "d") { InitMove(4); }
         else {
-            printf("%s isn't a movement\n", Input);
+            std::cout << ">> WARN:" << Input << " isn't a valid movement";
             goto get_input;
         }
     }

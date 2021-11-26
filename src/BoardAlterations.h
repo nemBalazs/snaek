@@ -4,7 +4,7 @@
 const bool DEBUG_MODE = 0;
 const std::string EMPTY_SPACE = " ";
 const std::string SNAKE = "\033[1;31mo\033[0m";
-const std::string TREAT = "$";
+const std::string TREAT = "\033[1;36m$\033[0m";
 const std::string BORDER = ".";
 
 // height and width of the board

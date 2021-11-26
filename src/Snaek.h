@@ -1,7 +1,6 @@
 #ifndef SNAEKMOV
 #define SNAEKMOV
-int Points;
-int SnakeLocationX, SnakeLocationY;
+int Points, SnakeLocationX, SnakeLocationY, SnakeLength;
 
 // 1: UP
 // 2: LEFT
