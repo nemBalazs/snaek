@@ -2,6 +2,7 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
+#include "Values.h"
 #include "BoardAlterations.h"
 #include "Snaek.h"
 
@@ -14,7 +15,6 @@ int main() {
 game_init:
     InitBoard();
     Points = 0;
-    SnakeLength = 0;
     SnakeIsDead = false;
 // game init end
 
@@ -31,7 +31,7 @@ get_input:
         else if(Input == "S" || Input == "s") { InitMove(3); }
         else if(Input == "D" || Input == "d") { InitMove(4); }
         else {
-            std::cout << ">> WARN:" << Input << " isn't a valid movement";
+            std::cout << Input << " isn't a valid movement" << std::endl;
             goto get_input;
         }
     }

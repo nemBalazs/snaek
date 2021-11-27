@@ -1,7 +1,5 @@
 #ifndef SNAEKMOV
 #define SNAEKMOV
-int Points, SnakeLocationX, SnakeLocationY, SnakeLength;
-
 // 1: UP
 // 2: LEFT
 // 3: DOWN
@@ -26,29 +24,45 @@ void SnakeMove(int SnakeX, int SnakeY, int direction) {
     }
 
     // the actual relocation
-    if(Board[NewSnakeX][NewSnakeY] == BORDER) {
+
+    if(Board[NewSnakeX][NewSnakeY] == BORDER || Board[NewSnakeX][NewSnakeY] == SNAKE) {
         Board[NewSnakeX][NewSnakeY] = "X";
         SnakeIsDead = true;
-        goto skip;
     }
+
     else if(Board[NewSnakeX][NewSnakeY] == TREAT) {
+        // SnakeLength++;
         Points++;
     }
     if(!SnakeIsDead) {
-        Board[NewSnakeX][NewSnakeY] = SNAKE;
-        Board[SnakeX][SnakeY] = EMPTY_SPACE;
-    }
-skip:
-    if(DEBUG_MODE) {
-        printf("Direction: %i, SnakeX %i, SnakeY %i, NewSnakeX %i, NewSnakeY %i\n", direction, SnakeX, SnakeY, NewSnakeX, NewSnakeY);
+        PlacedSnakeNum = 0;
+        Board[NewSnakeX][NewSnakeY] = SNAKE_HEAD;
+        Board[SnakeX][SnakeY] = SNAKE;
+
+        for(int column = 0; column < HEIGHT; column++) {
+            for(int row = 0; row < WIDTH; row++) {
+                if(Board[column][row] == SNAKE_HEAD || Board[column][row] == SNAKE) {
+                    if(DEBUG_MODE) { std::cout << "Snake at: " << column << ":" << row << " = " << Board[column][row]
+                    << std::endl; }
+                    PlacedSnakeNum++;
+                }
+            }
+        }
+        
+        if(PlacedSnakeNum > SnakeLength) {
+            Board[SnakeX][SnakeY] = EMPTY_SPACE;
+        }
+
+    if(DEBUG_MODE) { printf("PlacedSnakeNum: %i, SnakeLength: %i\n", PlacedSnakeNum, SnakeLength); }
+    
     }
 }
-
 // this just locates the snake's pos, and then passes the info to SnakeMove()
 void InitMove(int direction) {
+    
     for(int column = 0; column < HEIGHT; column++) {
         for(int row = 0; row < WIDTH; row++) {
-            if(Board[column][row] == SNAKE) {
+            if(Board[column][row] == SNAKE_HEAD) {
                 SnakeLocationX = column;
                 SnakeLocationY = row;
                 break;

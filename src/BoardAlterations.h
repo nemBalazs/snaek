@@ -1,24 +1,10 @@
 #ifndef BOARDALTERATIONS
 #define BOARDALTERATIONS
-// values i may or may not change often
-const bool DEBUG_MODE = 0;
-const std::string EMPTY_SPACE = " ";
-const std::string SNAKE = "\033[1;31mo\033[0m";
-const std::string TREAT = "\033[1;36m$\033[0m";
-const std::string BORDER = ".";
-
-// height and width of the board
-#define HEIGHT 15
-#define WIDTH 20
-
-std::string Board[HEIGHT][WIDTH];
-bool SnakeIsDead;
-
 // empties the board
 void InitBoard() {
     for(int column = 0; column < HEIGHT; column++) {
         for(int row = 0; row < WIDTH; row++) {
-            if(column == 0 || column == HEIGHT-1 ||  row == 0 || row == WIDTH-1) {
+            if(column == 0 || column == HEIGHT-1 || row == 0 || row == WIDTH-1) {
                 Board[column][row] = BORDER;
             }
             else {
@@ -28,10 +14,12 @@ void InitBoard() {
     }
 
     Board[2][2] = SNAKE;
+    Board[2][3] = SNAKE_HEAD;
 }
 
 // yes cool name
 void PrintBoardStatus() {
+    std::cout << "Snaek";
     for(int column = 0; column < HEIGHT; column++) {
         std::cout << std::endl;
         for(int row = 0; row < WIDTH; row++) {
@@ -51,7 +39,8 @@ void PlaceTreat() {
         row = rand() % (WIDTH);
 
         // check for occupied place
-        if(Board[column][row] == SNAKE || Board[column][row] == TREAT || Board[column][row] == BORDER) {
+        if(Board[column][row] == SNAKE || Board[column][row] == TREAT || Board[column][row] == BORDER
+            || Board[column][row] == SNAKE_HEAD) {
             if(DEBUG_MODE) { std::cout << "Place occupied\n"; }
             
             // checking for game over
@@ -64,10 +53,7 @@ void PlaceTreat() {
                 }
             }
 
-            if (DEBUG_MODE) {
-                printf("BIF Status: %d\nColumn %i : Row %i\n", BoardIsFull, column, row);
-                system("read");
-            }
+            if (DEBUG_MODE) { printf("BIF Status: %d\nColumn %i : Row %i\n", BoardIsFull, column, row); }
 
             // if the board is full, end the current game
             if(BoardIsFull == true) {
